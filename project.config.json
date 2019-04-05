@@ -1,15 +1,14 @@
 {
-	"miniprogramRoot": "miniprogram/",
-	"cloudfunctionRoot": "cloudfunctions/",
+	"miniprogramRoot": "client/dist/",
+	"cloudfunctionRoot": "cloud/",
 	"setting": {
 		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
+		"es6": false,
+		"postcss": false,
+		"minified": false
 	},
 	"appid": "wxb2b1dfd419b53b4f",
-	"projectname": "wx_cloud",
+	"projectname": "cloud_blog",
 	"libVersion": "2.2.5",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
@@ -34,8 +33,8 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"name": "index",
+					"pathName": "pages/index/index"
 				}
 			]
 		}

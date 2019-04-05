@@ -1,0 +1,95 @@
+.post{
+    background-color: #fff;
+}
+.banner{
+    width:710px;
+}
+.title{
+    padding:10px 20px;
+    font-size: 36px;
+    font-weight: bold;
+}
+.sub-title{
+    padding: 0 20px 20px;
+}
+.tag{
+    display: inline;
+    font-size: 26px;
+    padding-right: 20px;
+    color: hsl(200, 100, 50);
+    &:hover{
+        text-decoration: underline;
+    }
+}
+.time{
+    font-size: 24px;
+    color: #aaa;
+}
+.article{
+    padding: 20px;
+}
+.line{
+    margin-bottom: 20px;
+}
+.h1,.h2,.h3,.h4,.h5,.h6{
+    font-weight: bold;
+}
+.h1{
+    font-size: 36px;
+    line-height: 3;
+}
+.h2{
+    font-size: 34px;
+    line-height: 2.4;
+}
+.h3{
+    font-size: 32px;
+    line-height: 2.4;
+}
+.h4,.h5,.h6{
+    font-size: 28px;
+    line-height: 2;
+}
+.link{
+    color: hsl(200,100%,50%);
+}
+.pic{
+    width: 640px;
+}
+.bold{
+    font-weight: bold;
+}
+.italy{
+    font-style: italic;
+}
+.italy-bold{
+    font-weight: bold;
+    font-style: italic;
+}
+.text{
+    line-height: 2;
+}
+.code{
+    background: #eee;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    overflow: auto;
+}
+.code-line{
+    display: block;
+    line-height: 1.6;
+    white-space:pre;
+}
+.keyword{
+    color: hsl(354, 66%, 54%);
+}
+.var{
+    color: hsl(212, 100%, 39%);
+}
+.fun{
+    color: hsl(261, 51%, 51%);
+}
+.comm{
+    color: #aaa;
+}
