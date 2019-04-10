@@ -73,11 +73,13 @@ export default class Post extends Component<{}, IState> {
                   {l.type.search("h") == 0 && ( <Text className={l.type}>{l.text}</Text> )}
                   {l.type == "link" && ( <Navigator className='link' url={l.href}> {l.text} </Navigator> )}
                   {l.type == "img" && ( <Image className='pic' mode='widthFix' src={l.src} /> )}
-                  {l.type == "sl" && ( <Block> <Text decode className='num'> {l.num}.{" "} </Text>
+                  {l.type == "sl" && ( <Block> 
+                      <Text decode className='num'> {l.num}.{" "} </Text>
                       <TextChild list={l.child} />
                     </Block>
                   )}
-                  {l.type == "ul" && ( <Block> <Text decode className='num'> {" "} &bull;{" "} </Text>
+                  {l.type == "ul" && ( <Block> 
+                      <Text decode className='num'> {" "} &bull;{" "} </Text>
                       <TextChild list={l.child} />
                     </Block>
                   )}
@@ -87,7 +89,8 @@ export default class Post extends Component<{}, IState> {
                   <View className='code'>
                     {l.child.map(c => (
                       <View className='code-line'>
-                        {c.map(i => (
+                        {c.type == 'comm' && <Text decode className='comm'> {c.text} </Text>}
+                        {c.type == 'text' && c.child.map(i => (
                           <Block>
                             {i.type == "comm" && ( <Text decode className='comm'> {i.text} </Text> )}
                             {i.type == "keyword" && ( <Text decode className='keyword'> {i.text} </Text> )}
