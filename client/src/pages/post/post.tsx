@@ -62,7 +62,7 @@ export default class Post extends Component<{}, IState> {
           <View className='title'>{summary.title}</View>
           <View className='sub-title'>
             {summary.tags.map((t, i) => (
-              <Navigator key={i} className='tag' url={"/pages/tags/tags?id=" + t}> {t} </Navigator>
+              <Navigator key={i} className='tag' url={"/pages/list/list?tag=" + t}> {t} </Navigator>
             ))}
             <Text className='time'>{summary.date}</Text>
           </View>

@@ -3,25 +3,30 @@ import { View, Text, Navigator } from "@tarojs/components";
 import "./index.scss";
 
 interface IState {
+  loading: boolean;
+  size: number;
+  page: number;
+  total: number;
   list: Array<{ _id: string; summary: object }>;
+  context:object;
 }
 export default class Index extends Component<{}, IState> {
   state = {
-    list: []
+    loading: false,
+    size: 10,
+    page: 0,
+    total: -1,
+    list: [],
+    context:{}
   };
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
   config: Config = {
-    navigationBarTitleText: "Jeff's Blog"
+    navigationBarTitleText: "Jeff's Blog",
+    onReachBottomDistance: 50
   };
 
   componentWillMount() {
     this.getList();
+    this.getLogin();
   }
 
   getDbFn(fn, param) {
@@ -31,19 +36,61 @@ export default class Index extends Component<{}, IState> {
     });
   }
 
+  onReachBottom() {
+    this.getList();
+  }
+
+  getLogin(){
+    Taro.cloud.callFunction({
+      name: "login",
+      data: {}
+    }).then(res => {
+      console.log(res);
+      this.setState({ context: res.result });
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
   getList() {
-    this.getDbFn("getList", {})
-      .then(res => {
-        console.log(res);
-        this.setState({ list: res.result.data });
-      })
-      .catch(err => {
-        console.log(err);
+    const { size, page, total, loading } = this.state;
+    if (loading) return;
+    if (total >= 0 && size * page >= total) return;
+    this.setState({ loading: true });
+    this.getDbFn("getList", { size, page: page + 1 }).then(res => {
+      console.log(res);
+      const total = res.result.total;
+      const list = this.state.list.concat(res.result.list);
+      this.setState({ loading: false, page: page + 1, total, list });
+    }).catch(err => {
+      this.setState({ loading: false });
+      console.log(err);
+    });
+  }
+  generate(){
+    this.getDbFn("generate",{}).then(res=>{
+      console.log(res);
+      if(res.result.code == 0){
+        Taro.showToast({
+          title:'生成数据成功'
+        });
+      } else {
+        Taro.showToast({
+          icon:'none',
+          title:'生成数据失败'
+        });
+      }
+    }).catch(err=>{
+      console.log(err);
+      Taro.showToast({
+        icon:'none',
+        title:'生成数据失败'
       });
+    })
   }
   render() {
     return (
       <View className='container'>
+        { this.state.context.openid == 'or3cR0bV0AWRQfJQzJRBkwgFqi4U' && <Button className='btn' type='primary' onClick={this.generate}> 生成数据 </Button>}
         {this.state.list.map(l => (
           <Navigator
             className='item'
@@ -53,9 +100,7 @@ export default class Index extends Component<{}, IState> {
             <View className='title'>{l.summary.title}</View>
             <View className='sub-title'>
               {l.summary.tags.map(t => (
-                <Navigator className='tag' url={'/pages/tags/tags?id=' + t}>
-                  {t}
-                </Navigator>
+                <Navigator className='tag' url={'/pages/list/list?tag=' + t}> {t} </Navigator>
               ))}
               <Text className='time'>{l.summary.date}</Text>
             </View>
