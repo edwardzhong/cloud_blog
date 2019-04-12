@@ -5,9 +5,12 @@
 		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
-		"minified": false
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
-	"appid": "wxb2b1dfd419b53b4f",
+	"appid": "wx7bb611852b8c1e27",
 	"projectname": "cloud_blog",
 	"libVersion": "2.2.5",
 	"simulatorType": "wechat",

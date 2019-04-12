@@ -90,21 +90,20 @@ export default class Index extends Component<{}, IState> {
   render() {
     return (
       <View className='container'>
-        { this.state.context.openid == 'or3cR0bV0AWRQfJQzJRBkwgFqi4U' && <Button className='btn' type='primary' onClick={this.generate}> 生成数据 </Button>}
+        { this.state.context.openid == 'oSwD25Uw9XzuoEt7VCLdPxHDKWvY' && <Button className='btn' type='primary' onClick={this.generate}> 生成数据 </Button>}
         {this.state.list.map(l => (
-          <Navigator
-            className='item'
-            key={l._id}
-            url={'/pages/post/post?id=' + l._id}>
-            <Image className='banner' mode='widthFix' src={l.summary.banner} />
-            <View className='title'>{l.summary.title}</View>
+          <View className='item' key={l._id}>
+            <Navigator url={'/pages/post/post?id=' + l._id}>
+              <Image className='banner' mode='widthFix' src={l.summary.banner} />
+              <View className='title'>{l.summary.title}</View>
+            </Navigator>
             <View className='sub-title'>
               {l.summary.tags.map(t => (
                 <Navigator className='tag' url={'/pages/list/list?tag=' + t}> {t} </Navigator>
               ))}
               <Text className='time'>{l.summary.date}</Text>
             </View>
-          </Navigator>
+          </View>
         ))}
       </View>
     );

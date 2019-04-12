@@ -43,22 +43,18 @@ export default class List extends Component<{}, IState> {
     return (
       <View className='container'>
         {this.state.list.map(l => (
-          <Navigator
-            className='item'
-            key={l._id}
-            url={'/pages/post/post?id=' + l._id}>
-            <Image className='banner' mode='widthFix' src={l.summary.banner} />
-            <View className='title'>{l.summary.title}</View>
+          <View className='item' key={l._id}>
+            <Navigator url={'/pages/post/post?id=' + l._id}>
+              <Image className='banner' mode='widthFix' src={l.summary.banner} />
+              <View className='title'>{l.summary.title}</View>
+            </Navigator>
             <View className='sub-title'>
               {l.summary.tags.map(t => (
-                <Block>
-                { t != name && <Navigator className='tag' url={'/pages/list/list?tag=' + t}> {t} </Navigator>}
-                { t == name && <Text className='notag'>{t} </Text>}
-                </Block>
+                <Text className='notag'>{t} </Text>
               ))}
               <Text className='time'>{l.summary.date}</Text>
             </View>
-          </Navigator>
+          </View>
         ))}
       </View>
     );
