@@ -23,11 +23,18 @@ export default class Archive extends Component<{},IState> {
   }
   getArchive(){
     this.getDbFn('getArchive', {}).then(res => {
-        console.log(res.result.data);
-        this.setState({list:res.result.data });
+      if(res.result.code == 0){
+        const list = res.result.list.sort((a,b)=> Number(b.year) - Number(a.year));
+        this.setState({list:list });
+      }
     }).catch(err=>{
-        console.log(err);
     })
+  }
+  onShareAppMessage (res) {
+    return {
+      title: '文章归档',
+      path: '/pages/archive/archive'
+    }
   }
     render(){
         return(

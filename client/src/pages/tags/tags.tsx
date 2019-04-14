@@ -23,11 +23,15 @@ export default class Tags extends Component<{},IState> {
   }
   getTags(){
     this.getDbFn('getTags', {}).then(res => {
-        console.log(res.result);
         this.setState({list:res.result.data });
     }).catch(err=>{
-        console.log(err);
     })
+  }
+  onShareAppMessage (res) {
+    return {
+      title: '标签',
+      path: '/pages/tags/tags'
+    }
   }
     render(){
         return(

@@ -30,14 +30,19 @@ export default class List extends Component<{}, IState> {
 
   getList(param) {
     this.getDbFn("getTagList", param).then(res => {
-      console.log(res);
-      const list = res.result.data[0].list;
-      this.setState({ list });
+      if(res.result.code == 0){
+        const list = res.result.list;
+        this.setState({ list });
+      }
     }).catch(err => {
-      console.log(err);
     });
   }
-
+  onShareAppMessage (res) {
+    return {
+      title: '标签列表',
+      path: '/pages/list/list?tag='+ this.state.name
+    }
+  }
   render() {
     const name = this.state.name;
     return (

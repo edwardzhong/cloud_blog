@@ -47,11 +47,15 @@ export default class Post extends Component<{}, IState> {
     this.getDbFn("getPost", { id: id })
       .then(res => {
         this.setState({ post: res.result.data });
-        console.log(res);
       })
       .catch(err => {
-        console.log(err);
       });
+  }
+  onShareAppMessage (res) {
+    return {
+      title: this.state.post.summary.title,
+      path: '/pages/post/post?id='+this.state.post._id
+    }
   }
   render() {
     const { summary, lines } = this.state.post;

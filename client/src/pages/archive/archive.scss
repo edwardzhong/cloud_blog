@@ -4,11 +4,17 @@
 }
 .year{
     font-size: 40px;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 .list{
     padding: 10px 0;
 }
 .item{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 20px;
     font-size: 30px;
 }

@@ -45,10 +45,8 @@ export default class Index extends Component<{}, IState> {
       name: "login",
       data: {}
     }).then(res => {
-      console.log(res);
       this.setState({ context: res.result });
     }).catch(err=>{
-      console.log(err);
     });
   }
   getList() {
@@ -57,18 +55,15 @@ export default class Index extends Component<{}, IState> {
     if (total >= 0 && size * page >= total) return;
     this.setState({ loading: true });
     this.getDbFn("getList", { size, page: page + 1 }).then(res => {
-      console.log(res);
       const total = res.result.total;
       const list = this.state.list.concat(res.result.list);
       this.setState({ loading: false, page: page + 1, total, list });
     }).catch(err => {
       this.setState({ loading: false });
-      console.log(err);
     });
   }
   generate(){
     this.getDbFn("generate",{}).then(res=>{
-      console.log(res);
       if(res.result.code == 0){
         Taro.showToast({
           title:'生成数据成功'
@@ -80,12 +75,17 @@ export default class Index extends Component<{}, IState> {
         });
       }
     }).catch(err=>{
-      console.log(err);
       Taro.showToast({
         icon:'none',
         title:'生成数据失败'
       });
     })
+  }
+  onShareAppMessage (res) {
+    return {
+      title: "Jeff's Blog",
+      path: '/pages/index/index'
+    }
   }
   render() {
     return (

@@ -19,6 +19,7 @@ const dao = {
             const { total } = await posts.count();
             const { data } = await posts
                 .field({ summary: true })
+                .orderBy('num','desc')
                 .skip(start)
                 .limit(size)
                 .get();
@@ -44,18 +45,57 @@ const dao = {
     getTags() {
         return tags.get();
     },
-    getTagList({ tag }) {
-        return tags.where({ name: tag }).get();
+    async getTagList({ tag }) {
+        try{
+            const { data } = await tags.where({ name: tag }).get();
+            if(!data.length){ 
+                return {
+                    code:0,
+                    list:[],
+                    message: "success"
+                };
+            } 
+            const list = data[0].list.sort((a,b) => b.num - a.num);
+            return {
+                code:0,
+                list:list,
+                message: "success"
+            };
+        } catch(err){
+            return {
+                code: -1,
+                list:[],
+                err: err,
+                message: "error"
+            };
+        }
     },
-    getArchive() {
-        return archive.get();
+    async getArchive() {
+        try{
+            const { data } = await archive.get();
+            data.forEach(l=>{
+                l.list.sort((a,b)=>b.num-a.num);
+            });
+            return {
+                code: 0,
+                list: data,
+                message: "success"
+            };
+        } catch(err){
+            return {
+                code: -1,
+                list:[],
+                err: err,
+                message: "error"
+            };
+        }
     },
     async generate() {
         //生成标签和存档数据表
         try {
             let tag = {};
             let year = {};
-            const { data } = await posts.field({ summary: true }).get();
+            const { data } = await posts.field({ summary: true, num:true }).get();
             data.forEach(p => {
                 p.summary.tags.forEach(t => {
                     tag[t] = tag[t] || [];

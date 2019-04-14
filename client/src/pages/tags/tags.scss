@@ -3,10 +3,15 @@
     padding: 20px;
 }
 .item{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: inline-block;
     padding: 20px;
-    font-size: 30px;
+    word-break: break-all;
+    font-size: 34px;
+    color: hsl(200, 100%, 50%);
 }
 .count{
-    padding: 10px;
-    color: hsl(200, 100%, 50%)
+    padding: 5px;
+    color: #555;
+    font-size: 28px;
 }
