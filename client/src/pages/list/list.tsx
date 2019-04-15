@@ -29,12 +29,15 @@ export default class List extends Component<{}, IState> {
   }
 
   getList(param) {
+    Taro.showLoading({ title: 'loading', });
     this.getDbFn("getTagList", param).then(res => {
+      Taro.hideLoading();
       if(res.result.code == 0){
         const list = res.result.list;
         this.setState({ list });
       }
     }).catch(err => {
+      Taro.hideLoading();
     });
   }
   onShareAppMessage (res) {

@@ -44,11 +44,13 @@ export default class Post extends Component<{}, IState> {
     });
   }
   getPost(id) {
-    this.getDbFn("getPost", { id: id })
-      .then(res => {
+    Taro.showLoading({ title: 'loading', });
+    this.getDbFn("getPost", { id: id }).then(res => {
+        Taro.hideLoading();
         this.setState({ post: res.result.data });
       })
       .catch(err => {
+        Taro.hideLoading();
       });
   }
   onShareAppMessage (res) {

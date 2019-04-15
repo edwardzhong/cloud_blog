@@ -22,12 +22,15 @@ export default class Archive extends Component<{},IState> {
     });
   }
   getArchive(){
+    Taro.showLoading({ title: 'loading', });
     this.getDbFn('getArchive', {}).then(res => {
+      Taro.hideLoading();
       if(res.result.code == 0){
         const list = res.result.list.sort((a,b)=> Number(b.year) - Number(a.year));
         this.setState({list:list });
       }
     }).catch(err=>{
+      Taro.hideLoading();
     })
   }
   onShareAppMessage (res) {

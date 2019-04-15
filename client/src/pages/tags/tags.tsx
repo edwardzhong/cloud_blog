@@ -22,9 +22,12 @@ export default class Tags extends Component<{},IState> {
     });
   }
   getTags(){
+    Taro.showLoading({ title: 'loading', });
     this.getDbFn('getTags', {}).then(res => {
+        Taro.hideLoading();
         this.setState({list:res.result.data });
     }).catch(err=>{
+        Taro.hideLoading();
     })
   }
   onShareAppMessage (res) {
