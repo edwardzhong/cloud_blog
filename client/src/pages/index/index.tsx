@@ -52,8 +52,8 @@ export default class Index extends Component<{}, IState> {
   getList() {
     const { size, page, total, loading } = this.state;
     if (loading) return;
-    Taro.showLoading({ title: 'loading', });
     if (total >= 0 && size * page >= total) return;
+    Taro.showLoading({ title: 'loading', });
     this.setState({ loading: true });
     this.getDbFn("getList", { size, page: page + 1 }).then(res => {
       Taro.hideLoading();

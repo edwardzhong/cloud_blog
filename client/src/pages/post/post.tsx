@@ -96,6 +96,7 @@ export default class Post extends Component<{}, IState> {
                     {l.child.map(c => (
                       <View className='code-line'>
                         {c.type == 'comm' && <Text decode className='comm'> {c.text} </Text>}
+                        {c.type == 'md' && <Text decode className='text'> {c.text} </Text>}
                         {c.type == 'text' && c.child.map(i => (
                           <Block>
                             {i.type == "comm" && ( <Text decode className='comm'> {i.text} </Text> )}
