@@ -3,10 +3,10 @@ import { View, Text, Navigator } from "@tarojs/components";
 import "./tags.scss";
 
 interface IState {
-    list: Array<{ _id: string; name: name, list:object[] }>;
+  list: Array<{ _id: string; name: string; list: object[] }>;
 }
-export default class Tags extends Component<{},IState> {
-  state = {
+export default class Tags extends Component<{}, IState> {
+  state: IState = {
     list: []
   };
   componentWillMount() {
@@ -21,32 +21,32 @@ export default class Tags extends Component<{},IState> {
       data: { fn, param }
     });
   }
-  getTags(){
+  getTags() {
     Taro.showLoading({ title: 'loading', });
     this.getDbFn('getTags', {}).then(res => {
-        Taro.hideLoading();
-        this.setState({list:res.result.data });
-    }).catch(err=>{
-        Taro.hideLoading();
+      Taro.hideLoading();
+      this.setState({ list: res.result.data });
+    }).catch(() => {
+      Taro.hideLoading();
     })
   }
-  onShareAppMessage (res) {
+  onShareAppMessage() {
     return {
       title: '标签',
       path: '/pages/tags/tags'
     }
   }
-    render(){
-        return(
-            <View className='container'>
-                <View className="list">                
-                    {this.state.list.map(l => (
-                        <Navigator key={l._id} className='item' url={'/pages/list/list?tag='+l.name}>
-                            {l.name} <Text className='count'>({l.list.length})</Text>
-                        </Navigator>
-                    ))}
-                </View>
-            </View>
-        )
-    }
+  render() {
+    return (
+      <View className='container'>
+        <View className="list">
+          { this.state.list.map(l => (
+            <Navigator key={ l._id } className='item' url={ '/pages/list/list?tag=' + l.name }>
+              { l.name } <Text className='count'>({ l.list.length })</Text>
+            </Navigator>
+          )) }
+        </View>
+      </View>
+    )
+  }
 }
